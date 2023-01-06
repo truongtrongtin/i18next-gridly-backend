@@ -1,7 +1,8 @@
-name: Publish to NPM
+name: Release
 on:
-  release:
-    types: [created]
+  schedule:
+    - cron: '0 0 * * *'
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,16 +16,14 @@ jobs:
           node-version: 18
           cache: npm
 
-      - name: Skip husky
-        run: npm pkg delete scripts.prepare
-
       - name: Install
         run: npm ci
 
       - name: Build
         run: npm run build
 
-      - name: Publish package on NPM 📦
-        run: npm publish
+      - name: Release
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: npx semantic-release

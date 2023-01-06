@@ -30,12 +30,12 @@ function App() {
         Click on the Vite and React logos to learn more
       </p>
 
-      <p>{t('title', { name: 'John' })}</p>
-      <p>{t('description.part1')}</p>
-      <p>{t('description.part2')}</p>
-      <p>{t('description.part3')}</p>
+      <p>{t('global_one')}</p>
+      <p>{t('global_two')}</p>
+      <p>{t('global_three')}</p>
+      <p>{t('global_four', 'four')}</p>
       <div>
-        {['dev', 'vi', 'en'].map((lng) => (
+        {['en', 'vi', 'jp', 'zh'].map((lng) => (
           <button
             key={lng}
             style={{

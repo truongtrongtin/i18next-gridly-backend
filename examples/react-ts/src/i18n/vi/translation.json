@@ -1,8 +1,0 @@
-{
-  "title": "Xin chào {{name}}, tới react-i18next fully type-safe",
-  "description": {
-    "part1": "Đây là một ví dụ đơn giản.",
-    "part2": "😉",
-    "part3": "😉"
-  }
-}
