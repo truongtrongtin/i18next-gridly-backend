@@ -1,6 +1,7 @@
 import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import GridlyBackend, { GridlyBackendOptions } from 'i18next-gridly-backend';
 import { initReactI18next } from 'react-i18next';
-import { Backend, GridlyBackendOptions } from 'i18next-gridly-backend';
 
 const backendOptions: GridlyBackendOptions = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -10,17 +11,15 @@ const backendOptions: GridlyBackendOptions = {
 const isProduction = import.meta.env.NODE_ENV === 'production';
 
 i18n
-  .use(Backend)
+  .use(GridlyBackend)
+  .use(LanguageDetector)
   .use(initReactI18next)
-  // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    // resources,
-    debug: !isProduction,
-    lng: 'en',
+    debug: true,
     fallbackLng: 'en',
     backend: backendOptions,
-    saveMissing: true,
+    saveMissing: !isProduction,
   });
 
 export default i18n;

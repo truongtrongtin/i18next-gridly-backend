@@ -10,10 +10,11 @@
   },
   "dependencies": {
     "i18next": "^22.4.8",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-gridly-backend": "file:../..",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^12.1.1",
-    "i18next-gridly-backend": "file:../.."
+    "react-i18next": "^12.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",

@@ -19,7 +19,9 @@ export type Record = {
   path?: string;
 };
 
-export class Backend implements BackendModule<GridlyBackendOptions> {
+export default class GridlyBackend
+  implements BackendModule<GridlyBackendOptions>
+{
   static type = 'backend' as const;
 
   constructor(
@@ -32,7 +34,7 @@ export class Backend implements BackendModule<GridlyBackendOptions> {
     this.i18nextOptions = i18nextOptions;
   }
 
-  type = Backend.type;
+  type = GridlyBackend.type;
   services: Services;
   backendOptions: GridlyBackendOptions;
   i18nextOptions: InitOptions;
