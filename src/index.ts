@@ -1,4 +1,3 @@
-/// <reference lib="DOM" />
 import { BackendModule, InitOptions, ResourceKey, Services } from 'i18next';
 
 export type GridlyBackendOptions = {
