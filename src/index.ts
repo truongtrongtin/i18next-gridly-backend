@@ -1,9 +1,23 @@
-import { BackendModule, InitOptions, Services } from 'i18next';
+/// <reference lib="DOM" />
+import { BackendModule, InitOptions, ResourceKey, Services } from 'i18next';
 
-export interface GridlyBackendOptions {
+export type GridlyBackendOptions = {
   apiKey: string;
   viewId: string;
-}
+  namespaceColumnId?: string;
+  onSaveSuccess?: (languages: readonly string[], namespace: string) => void;
+};
+
+export type Cell = {
+  columnId: string;
+  value?: string | number | null;
+};
+
+export type Record = {
+  id: string;
+  cells: Cell[];
+  path?: string;
+};
 
 export class Backend implements BackendModule<GridlyBackendOptions> {
   static type = 'backend' as const;
@@ -34,21 +48,79 @@ export class Backend implements BackendModule<GridlyBackendOptions> {
   }
 
   async read(language: string, namespace: string) {
-    console.log(language);
-    console.log(namespace);
-    const { apiKey, viewId } = this.backendOptions;
-    const records = await fetch(
-      `https://api.gridly.com/v1/views/${viewId}/records`,
-      { headers: { Authorization: `ApiKey ${apiKey}` } },
-    );
-    const json = await records.json();
-    console.log(json);
+    const { apiKey, viewId, namespaceColumnId } = this.backendOptions;
+
+    const MAX_LIMIT = 1000;
+    let offset = 0,
+      totalCount = 0,
+      records: Record[] = [];
+
+    do {
+      const query = new URLSearchParams({
+        page: JSON.stringify({ limit: MAX_LIMIT, offset }),
+        columnIds: language,
+        query: JSON.stringify({
+          ...(namespaceColumnId
+            ? { [namespaceColumnId]: { '=': namespace } }
+            : {}),
+        }),
+      });
+      const response = await fetch(
+        `https://api.gridly.com/v1/views/${viewId}/records?${query}`,
+        { headers: { Authorization: `ApiKey ${apiKey}` } },
+      );
+      const newRecords = await response.json();
+      if (!response.ok) {
+        throw newRecords;
+      }
+      records = records.concat(newRecords);
+      totalCount = Number(response.headers.get('x-total-count'));
+      offset += MAX_LIMIT;
+    } while (offset < totalCount);
+
+    const result: ResourceKey = {};
+    for (const record of records) {
+      const recordId = record.id;
+      const value = record.cells[0]?.value;
+      result[recordId] = value;
+    }
+    return result;
   }
 
-  create() {
-    console.log('create');
-  }
-  save() {
-    console.log('SAVEEEE');
+  async create(
+    languages: readonly string[],
+    namespace: string,
+    key: string,
+    fallbackValue: string,
+  ) {
+    const { apiKey, viewId, namespaceColumnId, onSaveSuccess } =
+      this.backendOptions;
+    const cells: Cell[] = languages.map((language) => ({
+      columnId: language,
+      value: fallbackValue,
+    }));
+
+    if (namespaceColumnId) {
+      const namespaceCell: Cell = {
+        columnId: namespaceColumnId,
+        value: namespace,
+      };
+      cells.push(namespaceCell);
+    }
+    const records: Record[] = [{ id: key, cells }];
+    const response = await fetch(
+      `https://api.gridly.com/v1/views/${viewId}/records`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `ApiKey ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(records),
+      },
+    );
+    const json = await response.json();
+    if (!response.ok) throw json;
+    onSaveSuccess && onSaveSuccess(languages, namespace);
   }
 }
