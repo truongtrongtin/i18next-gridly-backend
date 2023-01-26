@@ -21,7 +21,7 @@ import i18next from 'i18next';
 import GridlyBackend, { GridlyBackendOptions } from 'i18next-gridly-backend';
 
 const isProduction = process.env.NODE_ENV === 'production';
-const backendOptions: GridlyBackendOptions = {
+const gridlyOptions: GridlyBackendOptions = {
   apiKey: 'API_KEY', // Use read-only API key in production env for security reason
   viewId: 'VIEW_ID',
 };
@@ -33,14 +33,14 @@ i18next
     debug: true,
     lng: 'en',
     fallbackLng: 'en',
-    backend: backendOptions,
+    backend: gridlyOptions,
     saveMissing: !isProduction,
   });
 ```
 
 ## React
 
-**[See examples](https://github.com/truongtrongtin/i18next-gridly-backend/blob/main/examples/react-ts/src/i18n.ts)**
+**[See example](https://github.com/truongtrongtin/i18next-gridly-backend/blob/main/examples/react-ts/src/i18n.ts)**
 
 ## Gridly Backend Options
 

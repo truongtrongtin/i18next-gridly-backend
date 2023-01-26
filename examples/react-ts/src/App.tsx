@@ -1,7 +1,14 @@
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import './App.css';
 import reactLogo from './assets/react.svg';
+
+const languages = [
+  { value: 'en', name: 'English' },
+  { value: 'sv', name: 'Swedish' },
+  { value: 'de', name: 'German' },
+  { value: 'fr', name: 'French' },
+];
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,33 +27,31 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          {t('count_is', 'count is {{number}}', { number: count })}
         </button>
         <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+          <Trans i18nKey="description.part1">
+            Edit <code>src/App.js</code> and save to test HMR
+          </Trans>
         </p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        {t(
+          'description.part2',
+          'Click on the Vite and React logos to learn more',
+        )}
       </p>
-
-      <p>{t('global_one')}</p>
-      <p>{t('global_two')}</p>
-      <p>{t('global_three')}</p>
-      <p>{t('global_four', 'four')}</p>
       <div>
-        {['en', 'vi', 'jp', 'zh'].map((lng) => (
+        {languages.map((lng) => (
           <button
-            key={lng}
+            key={lng.value}
             style={{
-              fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal',
+              fontWeight:
+                i18n.resolvedLanguage === lng.value ? 'bold' : 'normal',
             }}
-            type="submit"
-            onClick={() => {
-              i18n.changeLanguage(lng);
-            }}
+            onClick={() => i18n.changeLanguage(lng.value)}
           >
-            {lng}
+            {lng.name}
           </button>
         ))}
       </div>

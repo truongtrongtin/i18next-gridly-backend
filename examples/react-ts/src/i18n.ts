@@ -4,8 +4,7 @@ import GridlyBackend, { GridlyBackendOptions } from 'i18next-gridly-backend';
 import { initReactI18next } from 'react-i18next';
 
 const isProduction = import.meta.env.PROD;
-
-const backendOptions: GridlyBackendOptions = {
+const gridlyOptions: GridlyBackendOptions = {
   apiKey: import.meta.env.VITE_API_KEY,
   viewId: import.meta.env.VITE_VIEW_ID,
 };
@@ -18,7 +17,7 @@ i18n
   .init({
     debug: true,
     fallbackLng: 'en',
-    backend: backendOptions,
+    backend: gridlyOptions,
     saveMissing: !isProduction,
   });
 

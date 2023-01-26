@@ -70,11 +70,9 @@ export default class GridlyBackend
         `https://api.gridly.com/v1/views/${viewId}/records?${query}`,
         { headers: { Authorization: `ApiKey ${apiKey}` } },
       );
-      const newRecords = await response.json();
-      if (!response.ok) {
-        throw newRecords;
-      }
-      records = records.concat(newRecords);
+      const json = await response.json();
+      if (!response.ok) throw json;
+      records = records.concat(json);
       totalCount = Number(response.headers.get('x-total-count'));
       offset += MAX_LIMIT;
     } while (offset < totalCount);
