@@ -1,7 +1,7 @@
 {
   "name": "i18next-gridly-backend",
   "description": "A simple i18next backend for gridly.com",
-  "version": "0.0.0-development",
+  "version": "1.0.3",
   "author": "Tin Truong <truongtrongtin0305@gmail.com>",
   "license": "MIT",
   "type": "module",

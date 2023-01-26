@@ -5,8 +5,8 @@ import { initReactI18next } from 'react-i18next';
 
 const isProduction = import.meta.env.PROD;
 const gridlyOptions: GridlyBackendOptions = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  viewId: import.meta.env.VITE_VIEW_ID,
+  apiKey: import.meta.env.VITE_GRIDLY_API_KEY,
+  viewId: import.meta.env.VITE_GRIDLY_VIEW_ID,
 };
 
 i18n
