@@ -1,13 +1,30 @@
 {
   "name": "i18next-gridly-backend",
-  "description": "A simple i18next backend for gridly.com",
   "version": "1.0.6",
-  "author": "Tin Truong <truongtrongtin0305@gmail.com>",
+  "description": "A simple i18next backend for gridly.com",
+  "keywords": [
+    "i18next",
+    "gridly",
+    "backend",
+    "plugin"
+  ],
+  "homepage": "https://github.com/truongtrongtin/i18next-gridly-backend#readme",
+  "bugs": {
+    "url": "https://github.com/truongtrongtin/i18next-gridly-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/truongtrongtin/i18next-gridly-backend.git"
+  },
   "license": "MIT",
+  "author": "Tin Truong <truongtrongtin0305@gmail.com>",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -cw",
@@ -16,36 +33,19 @@
     "semantic-release": "semantic-release",
     "test": "node --loader ts-node/esm --test --watch src/index.test.ts"
   },
-  "files": [
-    "dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/truongtrongtin/i18next-gridly-backend.git"
-  },
-  "keywords": [
-    "i18next",
-    "gridly",
-    "backend",
-    "plugin"
-  ],
-  "bugs": {
-    "url": "https://github.com/truongtrongtin/i18next-gridly-backend/issues"
-  },
-  "homepage": "https://github.com/truongtrongtin/i18next-gridly-backend#readme",
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.0.0",
     "@semantic-release/changelog": "^6.0.2",
     "@semantic-release/git": "^10.0.1",
-    "@types/node": "^18.14.1",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
-    "@typescript-eslint/parser": "^5.53.0",
-    "eslint": "^8.34.0",
+    "@types/node": "^18.14.2",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.6.0",
     "prettier": "^2.8.4",
-    "rollup": "^3.17.2",
+    "rollup": "^3.17.3",
     "rollup-plugin-dts": "^5.2.0",
-    "semantic-release": "^20.1.0",
+    "semantic-release": "^20.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.5"
   },
