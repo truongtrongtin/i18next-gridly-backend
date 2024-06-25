@@ -51,6 +51,6 @@
     "typescript": "^5.5.2"
   },
   "peerDependencies": {
-    "i18next": "^22.0.0"
+    "i18next": ""
   }
 }
