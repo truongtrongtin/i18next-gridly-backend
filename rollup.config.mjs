@@ -1,8 +1,5 @@
 import typescript from '@rollup/plugin-typescript';
 import dts from 'rollup-plugin-dts';
-import pack from './package.json' assert { type: 'json' };
-
-const name = pack.main.replace(/\.js$/, '');
 
 const bundle = (config) => ({
   ...config,
@@ -15,12 +12,12 @@ export default [
     plugins: [typescript()],
     output: [
       {
-        file: `${name}.js`,
+        file: 'dist/index.js',
         format: 'cjs',
         sourcemap: true,
       },
       {
-        file: `${name}.mjs`,
+        file: 'dist/index.mjs',
         format: 'es',
         sourcemap: true,
       },
@@ -29,7 +26,7 @@ export default [
   bundle({
     plugins: [dts()],
     output: {
-      file: `${name}.d.ts`,
+      file: 'dist/index.d.ts',
       format: 'es',
     },
   }),
